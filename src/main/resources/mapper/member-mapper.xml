@@ -14,4 +14,8 @@
     <select id="login" parameterType="member" resultType="member">
         select * from testMember_table where memberEmail = #{memberEmail}
     </select>
+    <select id="list" parameterType="member" resultType="member">
+        select * from testMember_table
+    </select>
+
 </mapper>

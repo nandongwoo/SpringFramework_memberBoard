@@ -10,6 +10,7 @@
 <c:if test="${sessionScope.loginEmail=='admin'}">
     <a href="/member/logout">로그아웃</a>
     <a href="/member/mypage">마이페이지</a>
+    <a href="/member/list">회원관리</a>
 </c:if>
 <%@include file="component/footer.jsp"%>
 </body>

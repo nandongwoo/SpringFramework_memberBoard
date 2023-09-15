@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")
@@ -36,7 +37,7 @@ public class MemberController {
         return "/memberPages/memberLogin";
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession httpSession){
         MemberDTO memberDTO1 = memberService.login(memberDTO);
         if(memberDTO1 != null){
@@ -47,14 +48,18 @@ public class MemberController {
         }
     }
 
-    @GetMapping("logout")
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
-//        해당 파라미터만 없앨 경우
         session.removeAttribute("loginEmail");
-//         세션 전체를 없앨 경우
         session.invalidate();
-
         return "redirect:/";
+    }
+
+    @GetMapping("/list")
+    public String list(Model model){
+        List<MemberDTO> memberDTOList = memberService.list();
+        model.addAttribute("memberList", memberDTOList);
+        return "/memberPages/memberList";
     }
 
 }
