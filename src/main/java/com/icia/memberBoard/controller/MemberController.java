@@ -39,6 +39,7 @@ public class MemberController {
         MemberDTO memberDTO1 = memberService.login(memberDTO);
         if(memberDTO1 != null){
             httpSession.setAttribute("loginEmail", memberDTO1.getMemberEmail());
+            httpSession.setAttribute("loginId", memberDTO1.getId());
             return "/boardPages/boardList";
         }else {
              return "/memberPages/memberLogin";

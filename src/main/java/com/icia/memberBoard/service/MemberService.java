@@ -29,7 +29,7 @@ private MemberRepository memberRepository;
                 memberFileDTO.setStoredFileName(storedFileName);
                 memberFileDTO.setBoardId(saveMember.getId());
 
-                String savePath = "D:\\memberBoard_img\\" + storedFileName;
+                String savePath = "D:\\memberProFile_img\\" + storedFileName;
                 memberFile.transferTo(new File(savePath));
                 memberRepository.saveFile(memberFileDTO);
 

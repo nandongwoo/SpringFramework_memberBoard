@@ -8,10 +8,12 @@ import java.util.List;
 @Data
 public class BoardDTO {
     private Long id;
+    private Long memberId;
     private String boardTitle;
     private String boardWriter;
-    private String boardComment;
+    private String boardContents;
     private int boardHits;
     private String createdAt;
-    private List<MultipartFile> fileAttached;
+    private int fileAttached;
+    private List<MultipartFile> boardFile;
 }
