@@ -5,14 +5,14 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/">Home</a>
-<a href="/member/save">회원가입</a>
-<a href="/member/login">로그인</a>
 
 
-<c:if test="${sessionScope.loginEmail == 'admin'}">
-    <a href="/member/list">회원관리</a>
+<c:if test="${sessionScope.loginEmail=='admin'}">
+    <a href="/member/logout">로그아웃</a>
+    <a href="/member/mypage">마이페이지</a>
 </c:if>
+<h1>로그인완료</h1>
+
 
 </body>
 </html>

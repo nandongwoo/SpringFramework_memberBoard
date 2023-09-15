@@ -37,4 +37,10 @@ private MemberRepository memberRepository;
         }
 
     }
+
+    public MemberDTO login(MemberDTO memberDTO){
+        return memberRepository.login(memberDTO);
+    }
+
+
 }
