@@ -47,6 +47,14 @@ public class MemberController {
         }
     }
 
+    @GetMapping("logout")
+    public String logout(HttpSession session) {
+//        해당 파라미터만 없앨 경우
+        session.removeAttribute("loginEmail");
+//         세션 전체를 없앨 경우
+        session.invalidate();
 
+        return "redirect:/";
+    }
 
 }
