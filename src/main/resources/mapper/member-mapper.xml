@@ -11,11 +11,19 @@
         values (#{id}, #{originalFileName}, #{storedFileName}, #{boardId})
     </insert>
 
+
+
     <select id="login" parameterType="member" resultType="member">
         select * from testMember_table where memberEmail = #{memberEmail}
     </select>
     <select id="list" parameterType="member" resultType="member">
         select * from testMember_table
     </select>
+
+
+    <delete id="delete" parameterType="Long">
+        delete from testMember_table where id = #{id}
+    </delete>
+
 
 </mapper>

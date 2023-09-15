@@ -47,4 +47,8 @@ private MemberRepository memberRepository;
     public List<MemberDTO> list() {
         return memberRepository.list();
     }
+
+    public void delete(Long id) {
+        memberRepository.delete(id);
+    }
 }
