@@ -3,12 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Member">
     <insert id="save" parameterType="member" useGeneratedKeys="true" keyProperty="id">
-        insert into testMember_table (id, memberEmail, memberPassword, memberName, memberMobile)
-        values (#{id}, #{memberEmail}, #{memberPassword}, #{memberName}, #{memberMobile})
+        insert into testMember_table (memberEmail, memberPassword, memberName, memberMobile)
+        values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberMobile})
     </insert>
     <insert id="saveFile" parameterType="memberFile">
-        insert into testMember_file_table (id, originalFileName, storedFileName, boardId)
-        values (#{id}, #{originalFileName}, #{storedFileName}, #{boardId})
+        insert into testMember_file_table (originalFileName, storedFileName, boardId)
+        values (#{originalFileName}, #{storedFileName}, #{boardId})
     </insert>
 
 
