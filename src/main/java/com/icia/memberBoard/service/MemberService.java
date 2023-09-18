@@ -58,4 +58,10 @@ private MemberRepository memberRepository;
     public List<MemberFileDTO> findMemberProfile(Long boardId){
         return memberRepository.findMemberProfile(boardId);
     }
+
+    public void update(MemberDTO memberDTO) {
+        memberRepository.update(memberDTO);
+    }
+
+
 }

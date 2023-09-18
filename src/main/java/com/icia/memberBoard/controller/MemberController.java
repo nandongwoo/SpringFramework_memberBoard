@@ -46,6 +46,7 @@ public class MemberController {
         } else {
             return "/memberPages/memberLogin";
         }
+
     }
 
     @GetMapping("/logout")
@@ -76,6 +77,15 @@ public class MemberController {
         List<MemberFileDTO> memberFileDTOList = memberService.findMemberProfile(id);
         model.addAttribute("memberFile", memberFileDTOList);
         System.out.println("memberFileDTOList + memberDTO = " + memberFileDTOList + memberDTO);
+        return "/memberPages/memberMyPages";
+    }
+
+    @GetMapping("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO,
+                         Model model) {
+        System.out.println(memberDTO);
+        memberService.update(memberDTO);
+        model.addAttribute("member", memberDTO);
         return "/memberPages/memberMyPages";
     }
 }

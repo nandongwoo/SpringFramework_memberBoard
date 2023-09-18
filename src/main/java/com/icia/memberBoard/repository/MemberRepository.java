@@ -45,4 +45,10 @@ public class MemberRepository {
     public List<MemberFileDTO> findMemberProfile(Long boardId) {
        return sql.selectList("Member.findFile", boardId);
     }
+
+    public void update(MemberDTO memberDTO) {
+        sql.update("Member.update", memberDTO);
+    }
+
+
 }
