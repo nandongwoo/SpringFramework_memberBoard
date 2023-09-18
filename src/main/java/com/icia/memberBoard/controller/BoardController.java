@@ -2,7 +2,9 @@ package com.icia.memberBoard.controller;
 
 import com.icia.memberBoard.dto.BoardDTO;
 import com.icia.memberBoard.dto.BoardFileDTO;
+import com.icia.memberBoard.dto.CommentDTO;
 import com.icia.memberBoard.service.BoardService;
+import com.icia.memberBoard.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import java.util.List;
 public class BoardController {
     @Autowired
     private BoardService boardService;
+    @Autowired
+    private CommentService commentService;
 
 
     @GetMapping("/list")
@@ -47,6 +51,14 @@ public class BoardController {
             Model model) {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
+
+        List<CommentDTO> commentDTOList = commentService.findAll(id);
+        if (commentDTOList.size() == 0) {
+            model.addAttribute("commentList", null);
+        } else {
+            model.addAttribute("commentList", commentDTOList);
+        }
+
         if (boardDTO.getFileAttached() == 1) {
             List<BoardFileDTO> boardFileDTOList = boardService.boardFile(id);
             model.addAttribute("boardFile", boardFileDTOList);
