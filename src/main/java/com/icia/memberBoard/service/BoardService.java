@@ -86,4 +86,7 @@ public class BoardService {
     }
 
 
+    public void delete(Long id) {
+        boardRepository.delete(id);
+    }
 }

@@ -26,4 +26,8 @@
         update testBoard_table set boardTitle = #{boardTitle}, boardContents = #{boardContents} where id = #{id}
     </update>
 
+
+    <delete id="delete" parameterType="Long">
+        delete from testBoard_table where id = #{id}
+    </delete>
 </mapper>

@@ -75,14 +75,14 @@ public class BoardController {
     }
 
 
-//    @GetMapping("/delete")
-//    public String delete(@RequestParam("id")Long id,
-//                         Model model){
-//        boardService.delete(id);
-//        BoardDTO boardDTO = boardService.findById(id);
-//        model.addAttribute("board", boardDTO);
-//
-//    }
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id")Long id,
+                         Model model){
+        boardService.delete(id);
+        BoardDTO boardDTO = boardService.findById(id);
+        model.addAttribute("board", boardDTO);
+        return "redirect:/board/list";
+    }
 
 
 
