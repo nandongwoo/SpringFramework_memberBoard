@@ -7,9 +7,11 @@
 <body>
 
 <c:if test="${sessionScope.loginEmail=='admin'}">
-    <a href="/member/logout">로그아웃</a>
-    <a href="/member/mypage">마이페이지</a>
     <a href="/member/list">회원관리</a>
+</c:if>
+<c:if test="${sessionScope.loginEmail!=null}">
+<a href="/member/logout">로그아웃</a>
+<a href="/member/myPage?id=${sessionScope.loginId}">마이페이지</a>
 </c:if>
 <h1>로그인완료</h1>
 <div>

@@ -19,9 +19,12 @@
     <select id="list" parameterType="member" resultType="member">
         select * from testMember_table
     </select>
-<!--    <select id="findById" parameterType="member" resultType="member">-->
-<!--        select * from testMember_table where memberEmail = #-->
-<!--    </select>-->
+    <select id="findById" parameterType="Long" resultType="member">
+        select * from testMember_table where id = #{id}
+    </select>
+    <select id="findFile" parameterType="Long" resultType="memberFile">
+        select * from testMember_file_table where boardId = #{boardId}
+    </select>
 
 
 
