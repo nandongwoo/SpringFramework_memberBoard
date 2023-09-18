@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class BoardService {
@@ -17,9 +18,11 @@ public class BoardService {
     public void save(BoardDTO boardDTO) throws IOException {
         if(boardDTO.getBoardFile().get(0).isEmpty()){
             boardDTO.setFileAttached(0);
+            System.out.println("boardDTO = " + boardDTO);
             boardRepository.save(boardDTO);
         }else {
             boardDTO.setFileAttached(1);
+            System.out.println("boardDTO = " + boardDTO);
             BoardDTO saveFile = boardRepository.save(boardDTO);
             for (MultipartFile boardFile : boardDTO.getBoardFile()){
                 String originalFileName = boardFile.getOriginalFilename();
@@ -40,5 +43,18 @@ public class BoardService {
 
 
         }
+    }
+
+    public List<BoardDTO> list() {
+        return boardRepository.list();
+    }
+
+    public BoardDTO findById(Long id) {
+
+        return boardRepository.findById(id);
+    }
+
+    public List<BoardFileDTO> boardFile(Long id) {
+        return boardRepository.boardFile(id);
     }
 }

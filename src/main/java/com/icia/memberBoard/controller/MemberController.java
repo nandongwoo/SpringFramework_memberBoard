@@ -40,7 +40,7 @@ public class MemberController {
         if(memberDTO1 != null){
             httpSession.setAttribute("loginEmail", memberDTO1.getMemberEmail());
             httpSession.setAttribute("loginId", memberDTO1.getId());
-            return "/boardPages/boardList";
+            return "redirect:/board/list";
         }else {
              return "/memberPages/memberLogin";
         }

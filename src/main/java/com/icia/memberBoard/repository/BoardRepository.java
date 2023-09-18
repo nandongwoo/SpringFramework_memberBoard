@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class BoardRepository {
     @Autowired
@@ -20,5 +22,17 @@ public class BoardRepository {
     public void saveFile(BoardFileDTO boardFileDTO) {
         sql.insert("Board.saveFile", boardFileDTO);
 
+    }
+
+    public List<BoardDTO> list() {
+        return sql.selectList("Board.list");
+    }
+
+    public BoardDTO findById(Long id) {
+        return sql.selectOne("Board.findById", id);
+    }
+
+    public List<BoardFileDTO> boardFile(Long id) {
+        return sql.selectList("Board.findFile", id);
     }
 }

@@ -2,15 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Board">
-<insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="id">
-    insert into testboard_table(boardTitle, boardWriter, boardContents, fileAttached, memberId)
-    values (#{boardTitle}, #{boardWriter}, #{boardContents}, #{fileAttached}, #{memberId})
-</insert>
-
+    <insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="id">
+        insert into testboard_table(boardTitle, boardWriter, boardContents, fileAttached, memberId)
+        values (#{boardTitle}, #{boardWriter}, #{boardContents}, #{fileAttached}, #{memberId})
+    </insert>
     <insert id="saveFile" parameterType="boardFile">
         insert into testBoard_file_table(boardId, originalFileName, storedFileName)
         values (#{boardId}, #{originalFileName}, #{storedFileName})
 
     </insert>
+
+    <select id="list" parameterType="board" resultType="board">
+        select * from testBoard_table order by id desc
+    </select>
+    <select id="findById" parameterType="Long" resultType="board">
+        select * from testBoard_table where id = #{id}
+    </select>
+    <select id="findFile" parameterType="Long" resultType="boardFile">
+        select * from testBoard_file_table where boardId = #{id}
+    </select>
 
 </mapper>

@@ -25,7 +25,7 @@
 
 
 
-    <delete id="delete" parameterType="Long">
+    <delete id="delete" parameterType="Long" >
         delete from testMember_table where id = #{id}
     </delete>
 

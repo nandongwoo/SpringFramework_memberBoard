@@ -12,8 +12,30 @@
     <a href="/member/list">회원관리</a>
 </c:if>
 <h1>로그인완료</h1>
+<div>
+    <table>
+        <tr>
+            <td>글번호</td>
+            <td>작성자</td>
+            <td>제목</td>
+            <td>조회수</td>
+            <td>첨부파일</td>
+        </tr>
+    </table>
 
-
+<c:forEach items="${boardList}" var="board">
+    <table>
+        <tr>
+            <td>${board.id}</td>
+            <td>${board.boardWriter}</td>
+            <td><a href="/board/detail?id=${board.id}">${board.boardTitle}</a></td>
+            <td>${board.boardHits}</td>
+            <td>${board.fileAttached}</td>
+        </tr>
+    </table>
+    <br>
+</c:forEach>
+</div>
 
 
 
