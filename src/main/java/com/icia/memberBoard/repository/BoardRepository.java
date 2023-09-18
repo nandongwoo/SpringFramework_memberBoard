@@ -32,7 +32,16 @@ public class BoardRepository {
         return sql.selectOne("Board.findById", id);
     }
 
-    public List<BoardFileDTO> boardFile(Long id) {
-        return sql.selectList("Board.findFile", id);
+    public List<BoardFileDTO> boardFile(Long boardId) {
+        return sql.selectList("Board.findFile", boardId);
+    }
+
+//    public void boardUpdateFile(BoardFileDTO boardFileDTO){
+//        sql.update("Board.updateFile", boardFileDTO);
+//    }
+
+    public BoardDTO update(BoardDTO boardDTO) {
+        sql.update("Board.update", boardDTO);
+        return boardDTO;
     }
 }

@@ -19,7 +19,11 @@
         select * from testBoard_table where id = #{id}
     </select>
     <select id="findFile" parameterType="Long" resultType="boardFile">
-        select * from testBoard_file_table where boardId = #{id}
+        select * from testBoard_file_table where boardId = #{boardId}
     </select>
+
+    <update id="update" parameterType="board" useGeneratedKeys="true" keyProperty="id">
+        update testBoard_table set boardTitle = #{boardTitle}, boardContents = #{boardContents} where id = #{id}
+    </update>
 
 </mapper>

@@ -29,5 +29,4 @@
         delete from testMember_table where id = #{id}
     </delete>
 
-
 </mapper>

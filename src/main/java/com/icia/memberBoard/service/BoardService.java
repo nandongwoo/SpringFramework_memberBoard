@@ -6,6 +6,7 @@ import com.icia.memberBoard.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+//import sun.jvm.hotspot.debugger.Page;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +16,32 @@ import java.util.List;
 public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
+
+    public void update(BoardDTO boardDTO) throws IOException {
+//        if(boardDTO.getBoardFile().get(0).isEmpty()){
+//            boardDTO.setFileAttached(0);
+            boardRepository.update(boardDTO);
+//        }else {
+//            boardDTO.setFileAttached(1);
+//            BoardDTO updateFile = boardRepository.update(boardDTO);
+//            for(MultipartFile boardUpdateFile : boardDTO.getBoardFile()){
+//                String originalFileName = boardUpdateFile.getOriginalFilename();
+//                String storedFileName = System.currentTimeMillis() + "-" + originalFileName;
+//
+//                BoardFileDTO boardFileDTO = new BoardFileDTO();
+//                boardFileDTO.setOriginalFileName(originalFileName);
+//                boardFileDTO.setStoredFileName(storedFileName);
+//                boardFileDTO.setBoardId(updateFile.getId());
+//
+//                String savePath = "D:\\boardFile_img\\" + storedFileName;
+//                boardUpdateFile.transferTo(new File(savePath));
+//                boardRepository.boardUpdateFile(boardFileDTO);
+//
+//            }
+//        }
+    }
+
+
     public void save(BoardDTO boardDTO) throws IOException {
         if(boardDTO.getBoardFile().get(0).isEmpty()){
             boardDTO.setFileAttached(0);
@@ -54,7 +81,9 @@ public class BoardService {
         return boardRepository.findById(id);
     }
 
-    public List<BoardFileDTO> boardFile(Long id) {
-        return boardRepository.boardFile(id);
+    public List<BoardFileDTO> boardFile(Long boardId) {
+        return boardRepository.boardFile(boardId);
     }
+
+
 }

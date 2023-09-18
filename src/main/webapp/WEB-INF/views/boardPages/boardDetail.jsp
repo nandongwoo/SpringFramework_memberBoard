@@ -21,8 +21,64 @@
             </c:forEach>
         </tr>
         </c:if>
+
+        <c:if test="${board.boardWriter == sessionScope.loginEmail}">
+                <input type="button" onclick="update_fn()" value="수정">
+
+        </c:if>
+        <c:if test="${board.boardWriter == sessionScope.loginEmail}">
+                <input type="button" onclick="delete_fn()" value="삭제">
+        </c:if>
+        <c:if test="${board.boardWriter == 'admin'}">
+            <form action="/board/delete?id=${board.id}" method="get">
+                <input type="submit" value="삭제">
+            </form>
+        </c:if>
+<%--        <c:if test="${board.boardWriter == sessionScope.loginEmail || board.boardWriter == admin}">--%>
+<%--            <form action="/board/delete" method="get">--%>
+<%--                <input type="submit" value="삭제">--%>
+<%--            </form>--%>
+<%--        </c:if>--%>
         </tr>
     </table>
 </div>
 </body>
+<script>
+    const update_fn = () => {
+        const id = ${board.id};
+        location.href = "/board/update?id=" + id;
+    }
+    const delete_fn = () => {
+        const id = ${board.id};
+        location.href = "/board/delete?id=" + id;
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
