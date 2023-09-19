@@ -27,6 +27,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                       @RequestParam(value = "listCount" , required = false, defaultValue = "3") int listCount,
                        @RequestParam(value = "q", required = false, defaultValue = "") String q,
                        @RequestParam(value = "type", required = false, defaultValue = "boardTitle") String type,
                        Model model) {
@@ -38,12 +39,12 @@ public class BoardController {
         // 검색요청인지 아닌지 구분
         if (q.equals("")) {
             // 일반 페이지 요청
-            boardDTOList = boardService.pagingList(page);
-            pageDTO = boardService.pageNumber(page);
+            boardDTOList = boardService.pagingList(page, listCount);
+            pageDTO = boardService.pageNumber(page, listCount);
         } else {
             // 검색결과 페이지 요청
-            boardDTOList = boardService.searchList(q, type, page);
-            pageDTO = boardService.serachPageNumber(q, type, page);
+            boardDTOList = boardService.searchList(q, type, page, listCount);
+            pageDTO = boardService.searchPageNumber(q, type, page, listCount);
 
         }
 
@@ -52,6 +53,7 @@ public class BoardController {
         model.addAttribute("q",q);
         model.addAttribute("type", type);
         model.addAttribute("page", page);
+        model.addAttribute("listCount", listCount);
         return "/boardPages/boardList";
     }
 
