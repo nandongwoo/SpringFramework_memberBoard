@@ -51,4 +51,7 @@ public class MemberRepository {
     }
 
 
+    public MemberDTO emailCheck(MemberDTO memberDTO) {
+        return sql.selectOne("Member.emailCheck", memberDTO);
+    }
 }

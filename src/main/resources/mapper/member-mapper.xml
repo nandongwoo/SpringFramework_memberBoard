@@ -25,6 +25,9 @@
     <select id="findFile" parameterType="Long" resultType="memberFile">
         select * from testMember_file_table where boardId = #{boardId}
     </select>
+    <select id="emailCheck" parameterType="member" resultType="member">
+        select * from testMember_table where memberEmail = #{memberEmail}
+    </select>
 
 
 

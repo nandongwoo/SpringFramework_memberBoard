@@ -64,4 +64,7 @@ private MemberRepository memberRepository;
     }
 
 
+    public MemberDTO emailCheck(MemberDTO memberDTO) {
+       return memberRepository.emailCheck(memberDTO);
+    }
 }

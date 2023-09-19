@@ -163,4 +163,8 @@ public class BoardService {
         pageDTO.setStartPage(startPage);
         return pageDTO;
     }
+
+    public void updateHits(Long id) {
+        boardRepository.updateHits(id);
+    }
 }

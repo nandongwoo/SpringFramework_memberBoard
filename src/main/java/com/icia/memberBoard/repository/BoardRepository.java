@@ -66,4 +66,8 @@ public class BoardRepository {
     public int boardSearchCount(Map<String, String> pagingParams) {
         return sql.selectOne("Board.searchCount", pagingParams);
     }
+
+    public void updateHits(Long id) {
+        sql.update("Board.updateHits", id);
+    }
 }

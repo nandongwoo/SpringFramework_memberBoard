@@ -21,8 +21,9 @@
         <br>
         <input type="text" name="passCheck" id="memberPass">
         <input type="button" onclick="passCheck_fn()" value="수정">
-
+        <a href="/member/delete1?id=${member.id}">회원탈퇴</a>
     </form>
+
 </tr>
 
 </body>

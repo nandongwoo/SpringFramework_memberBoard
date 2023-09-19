@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -63,11 +62,6 @@ public class MemberController {
         return "/memberPages/memberList";
     }
 
-    @GetMapping("/delete")
-    public String delete(@RequestParam("id") Long id) {
-        memberService.delete(id);
-        return "redirect:/member/list";
-    }
 
     @GetMapping("/myPage")
     public String myPage(@RequestParam("id") Long id,
@@ -87,5 +81,27 @@ public class MemberController {
         memberService.update(memberDTO);
         model.addAttribute("member", memberDTO);
         return "/memberPages/memberMyPages";
+    }
+
+    @GetMapping("/delete1")
+    public String delete1(@RequestParam("id")Long id,
+                         Model model){
+        MemberDTO memberDTO = memberService.findById(id);
+        model.addAttribute("member",memberDTO);
+        System.out.println(memberDTO);
+        return "/memberPages/memberDelete";
+    }
+
+    @GetMapping("/delete2")
+    public String delete2(@RequestParam("id")Long id){
+        memberService.delete(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/emailCheck")
+    public @ResponseBody MemberDTO emailCheck(MemberDTO memberDTO){
+        MemberDTO memberDTO1 = memberService.emailCheck(memberDTO);
+        System.out.println("memberDTO = " + memberDTO);
+        return memberDTO1;
     }
 }

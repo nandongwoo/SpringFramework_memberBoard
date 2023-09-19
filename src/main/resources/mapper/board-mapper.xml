@@ -12,8 +12,10 @@
 
     </insert>
 
+
+
     <select id="list" parameterType="board" resultType="board">
-        select * from testBoard_table order by id desc
+        select * from testBoard_table order by boardHits desc
     </select>
     <select id="findById" parameterType="Long" resultType="board">
         select * from testBoard_table where id = #{id}
@@ -25,7 +27,9 @@
     <update id="update" parameterType="board" useGeneratedKeys="true" keyProperty="id">
         update testBoard_table set boardTitle = #{boardTitle}, boardContents = #{boardContents} where id = #{id}
     </update>
-
+    <update id="updateHits" parameterType="Long">
+        update testboard_table set boardHits = boardHits + 1 where id = #{id}
+    </update>
 
     <delete id="delete" parameterType="Long">
         delete from testBoard_table where id = #{id}

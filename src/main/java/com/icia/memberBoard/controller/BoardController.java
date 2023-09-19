@@ -73,6 +73,7 @@ public class BoardController {
     public String detail(
             @RequestParam("id") Long id,
             Model model) {
+        boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
 
