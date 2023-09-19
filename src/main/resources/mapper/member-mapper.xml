@@ -14,7 +14,7 @@
 
 
     <select id="login" parameterType="member" resultType="member">
-        select * from testMember_table where memberEmail = #{memberEmail}
+        select * from testmember_table where memberEmail=#{memberEmail} and memberPassword=#{memberPassword}
     </select>
     <select id="list" parameterType="member" resultType="member">
         select * from testMember_table

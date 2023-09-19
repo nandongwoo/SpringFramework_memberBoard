@@ -37,15 +37,13 @@ public class MemberController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession httpSession) {
-        MemberDTO memberDTO1 = memberService.login(memberDTO);
-        if (memberDTO1 != null) {
-            httpSession.setAttribute("loginEmail", memberDTO1.getMemberEmail());
-            httpSession.setAttribute("loginId", memberDTO1.getId());
-            return "redirect:/board/list";
-        } else {
+        boolean result = memberService.login(memberDTO);
+        if (result) {
+                httpSession.setAttribute("loginEmail", memberDTO.getMemberEmail());
+                httpSession.setAttribute("loginId", memberDTO.getId());
+                return "redirect:/board/list";
+            }
             return "/memberPages/memberLogin";
-        }
-
     }
 
     @GetMapping("/logout")

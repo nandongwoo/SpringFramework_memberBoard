@@ -46,10 +46,11 @@
 </div>
 <div>
     <h4>댓글작성</h4>
-
+    <c:if test="${sessionScope.loginEmail!=null}">
     <input type="text" id="commentWriter" value="${sessionScope.loginEmail}" readonly>
     <input type="text" id="commentContents" placeholder="내용 입력">
     <button onclick="commentSave_fn()">댓글작성</button>
+    </c:if>
 </div>
     <div id="comment-List-area">
         <c:choose>
@@ -68,6 +69,9 @@
                         <td>${comment.commentWriter}</td>
                         <td>${comment.commentContents}</td>
                         <td>${comment.createdAt}</td>
+                        <c:if test="${sessionScope.loginEmail==comment.commentWriter}">
+                        <td><input type="button" onclick="commentDelete_fn()" value="삭제"></td>
+                        </c:if>
                     </tr>
                     <br>
                 </c:forEach>
@@ -101,6 +105,11 @@
                     output += "        <td>" + res[i].commentWriter + "</td>\n";
                     output += "        <td>" + res[i].commentContents + "</td>\n";
                     output += "        <td>" + res[i].createdAt + "</td>\n";
+                    if (${sessionScope.loginEmail} = res[i].commentWriter) {
+                        output += "        <td><input type=\"button\" onclick=\"commentDelete_fn()\" value=\"삭제\"></td>\n";
+                    } else {
+                        output += "        <td></td>\n";
+                    }
                     output += "    </tr>\n";
                 }
                 output += "</table>";
@@ -113,7 +122,6 @@
             }
         })
     }
-
 
     const update_fn = () => {
         const id = ${board.id};
