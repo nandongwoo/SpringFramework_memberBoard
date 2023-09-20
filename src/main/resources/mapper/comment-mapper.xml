@@ -12,4 +12,10 @@
         values (#{boardId}, #{commentWriter}, #{commentContents})
     </insert>
 
+
+    <delete id="delete" parameterType="Long">
+        delete from testComment_table where id = #{id}
+    </delete>
+
+
 </mapper>

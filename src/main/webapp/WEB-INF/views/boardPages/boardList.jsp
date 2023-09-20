@@ -3,64 +3,59 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/resources/css/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-
-<c:if test="${sessionScope.loginEmail=='admin'}">
-    <a href="/member/list">회원관리</a>
-</c:if>
-<c:if test="${sessionScope.loginEmail!=null}">
-<a href="/member/logout">로그아웃</a>
-<a href="/member/myPage?id=${sessionScope.loginId}">마이페이지</a>
-</c:if>
-<h1>로그인완료</h1>
-<div id="section">
-    <div claas="container" id="search-area">
+<%@include file="component/header.jsp" %>
+<%@include file="component/nav.jsp" %>
+<div id="section" class="container">
+    <div id="search-area" class="mt-5">
         <form action="/board/list" method="get">
-            <select id = "listCount" name = "listCount" value="${listCount}">
-                <option value="3" selected>글 개수</option>
+            <select id="listCount" name="listCount" value="${listCount}">
+                <option value="5" selected>글 개수</option>
                 <option value="3">3개씩 보기</option>
                 <option value="5">5개씩 보기</option>
                 <option value="10">10개씩 보기</option>
                 <option value="15">15개씩 보기</option>
                 <option value="20">20개씩 보기</option>
             </select>
-            <select id="type" name = "type">
-                <option value = "boardTitle">제목</option>
-                <option value = "boardWriter">작성자</option>
+            <select id="type" name="type">
+                <option value="boardTitle">제목</option>
+                <option value="boardWriter">작성자</option>
             </select>
             <input id="q" type="text" name="q" placeholder="검색어를 입력하세요">
             <input type="submit" value="검색">
         </form>
     </div>
     <%--검색 창--%>
-    <div class="container" id="list">
-        <table class="table table-striped table-hover text-center">
-        <tr>
+    <table class="table table-hover text-center">
+        <tr class="table table-secondary">
             <td>글번호</td>
             <td>작성자</td>
             <td>제목</td>
             <td>조회수</td>
             <td>첨부파일</td>
         </tr>
-
-
-<c:forEach items="${boardList}" var="board">
-        <tr>
-            <td>${board.id}</td>
-            <td>${board.boardWriter}</td>
-            <td><a href="/board/detail?id=${board.id}&page=${paging.page}&q=${q}&type=${type}&listCount=${listCount}">${board.boardTitle}</a></td>
-            <td>${board.boardHits}</td>
-            <td>${board.fileAttached}</td>
-        </tr>
+        <br>
+        <c:forEach items="${boardList}" var="board">
+            <tr>
+                <td>${board.id}</td>
+                <td>${board.boardWriter}</td>
+                <td>
+                    <a href="/board/detail?id=${board.id}&page=${paging.page}&q=${q}&type=${type}&listCount=${listCount}">${board.boardTitle}</a>
+                </td>
+                <td>${board.boardHits}</td>
+                <td>${board.fileAttached}</td>
+            </tr>
+        </c:forEach>
+    </table>
     <br>
-</c:forEach>
-        </table>
-    </div>
+    <c:if test="${sessionScope.loginEmail!=null}">
+        <button class="btn btn-outline-dark" onclick=location.href="/board/save">글쓰기</button>
+    </c:if>
 </div>
+<br>
 <%-- 페이지 번호 출력 부분 --%>
 <div class="container">
     <ul class="pagination justify-content-center">
@@ -74,7 +69,8 @@
             <%-- 1페이지가 아닌 경우에는 [이전]을 클릭하면 현재 페이지보다 1 작은 페이지 요청 --%>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/board/list?page=${paging.page-1}&q=${q}&type=${type}&listCount=${listCount}">[이전]</a>
+                    <a class="page-link"
+                       href="/board/list?page=${paging.page-1}&q=${q}&type=${type}&listCount=${listCount}">[이전]</a>
                 </li>
             </c:otherwise>
         </c:choose>
@@ -91,7 +87,8 @@
 
                 <c:otherwise>
                     <li class="page-item">
-                        <a class="page-link" href="/board/list?page=${i}&q=${q}&type=${type}&listCount=${listCount}">${i}</a>
+                        <a class="page-link"
+                           href="/board/list?page=${i}&q=${q}&type=${type}&listCount=${listCount}">${i}</a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -105,16 +102,14 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/board/list?page=${paging.page+1}&q=${q}&type=${type}&listCount=${listCount}">[다음]</a>
+                    <a class="page-link"
+                       href="/board/list?page=${paging.page+1}&q=${q}&type=${type}&listCount=${listCount}">[다음]</a>
                 </li>
             </c:otherwise>
         </c:choose>
     </ul>
 </div>
-
-<c:if test="${sessionScope.loginEmail!=null}">
-    <a href="/board/save">글쓰기</a>
-</c:if>
+<%@include file="component/footer.jsp" %>
 </body>
 <script>
     <%--const search_fn = () => {--%>

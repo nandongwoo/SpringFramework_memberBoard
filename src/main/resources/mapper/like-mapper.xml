@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Like">
+    <insert id="insert">
+        insert into heart_table(memberId, commentId, heart, dlike)
+        values (#{loginId}, #{commemtId}, 0, 0)
+    </insert>
+
+    <select id="findById" parameterType="Long" resultType="like">
+        select * from heart_table where id = #{id}
+    </select>
+    <update id="hitsDown" parameterType="Long">
+        update testcomment_table set heartCount = heartCount -1 where id = #{id}
+    </update>
+
+    <update id="hitsUp" parameterType="Long">
+        update testcomment_table set heartCount = heartCount -1 where id = #{id}
+    </update>
+</mapper>

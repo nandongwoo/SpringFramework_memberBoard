@@ -25,4 +25,8 @@ public class CommentRepository {
     public void save(CommentDTO commentDTO) {
         sql.insert("Comment.save", commentDTO);
     }
+
+    public void delete(Long id) {
+        sql.delete("Comment.delete", id);
+    }
 }

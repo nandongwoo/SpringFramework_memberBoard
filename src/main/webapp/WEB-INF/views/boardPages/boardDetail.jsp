@@ -3,83 +3,135 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <style>
+        /*.table{*/
+        /*    margin-left: 50px;*/
+        /*    margin-right: 50px;*/
+        /*}*/
+
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <div>
-    <table>
+    <%@include file="component/header.jsp" %>
+    <%@include file="component/nav.jsp" %>
+    <div>
+        <%--        <a class="text-dark heart" style="text-decoration-line: none;">--%>
+        <%--            <img id="heart" src="/resources/icon/heart.svg">--%>
+        <%--            좋아요--%>
+        <%--        </a>--%>
+    </div>
+    <table class="table mx-5">
         <tr>
-            <td>${board.id}</td>
-            <td>${board.boardWriter}</td>
-            <td>${board.boardTitle}</td>
-            <td>${board.boardContents}</td>
-            <c:if test="${board.fileAttached==1}">
-        <tr>
-            <th>image</th>
-            <c:forEach items="${boardFile}" var="boardFile">
-                <img src="${pageContext.request.contextPath}/upload/${boardFile.storedFileName}"
-                     alt="" width="100" height="100">
-            </c:forEach>
-        </tr>
-        </c:if>
-
-        <c:if test="${board.boardWriter == sessionScope.loginEmail}">
-            <input type="button" onclick="update_fn()" value="수정">
-
-        </c:if>
-        <c:if test="${board.boardWriter == sessionScope.loginEmail}">
-            <input type="button" onclick="delete_fn()" value="삭제">
-        </c:if>
-        <c:if test="${board.boardWriter == 'admin'}">
-            <form action="/board/delete?id=${board.id}" method="get">
-                <input type="submit" value="삭제">
-            </form>
-        </c:if>
-        <%--        <c:if test="${board.boardWriter == sessionScope.loginEmail || board.boardWriter == admin}">--%>
-        <%--            <form action="/board/delete" method="get">--%>
-        <%--                <input type="submit" value="삭제">--%>
-        <%--            </form>--%>
-        <%--        </c:if>--%>
+            <td>글번호 : ${board.id}</td>
         </tr>
     </table>
+    <table class="table mx-5">
+        <tr>
+            <td>글번호 : ${board.boardWriter}</td>
+        </tr>
+    </table>
+    <table class="table mx-5">
+        <tr>
+            <td>글번호 : ${board.boardTitle}</td>
+        </tr>
+    </table>
+    <br>
+    <table class="mx-5">
+        <tr>
+            <td>
+                  내용 : <br>
+                <c:if test="${board.fileAttached==1}">
+                <c:forEach items="${boardFile}" var="boardFile">
+
+                <img src="${pageContext.request.contextPath}/boardFileUpload/${boardFile.storedFileName}"
+                     alt="" width="100" height="100">
+            </td>
+            </c:forEach>
+            </c:if>
+            <td id="td">${board.boardContents}</td>
+        </tr>
+    </table>
+    <div class="mx-5">
+    <br>
+    <c:if test="${board.boardWriter == sessionScope.loginEmail}">
+        <input type="button" class="btn btn-outline-primary" onclick="update_fn()" value="수정">
+    </c:if>
+    <c:choose>
+        <c:when test="${board.boardWriter == sessionScope.loginEmail}">
+            <input type="button" class="btn btn-outline-danger" onclick="delete_fn()" value="삭제">
+        </c:when>
+        <c:when test="${sessionScope.loginEmail == 'admin'}">
+            <input type="button" class="btn btn-outline-danger" onclick="delete_fn()" value="삭제">
+        </c:when>
+    </c:choose>
+    <%--        <c:if test="${board.boardWriter == sessionScope.loginEmail || board.boardWriter == admin}">--%>
+    <%--            <form action="/board/delete" method="get">--%>
+    <%--                <input type="submit" value="삭제">--%>
+    <%--            </form>--%>
+    <%--        </c:if>--%>
+    </div>
 </div>
-<div>
-    <h4>댓글작성</h4>
+<div class="mx-5">
+    <br><br>
+    <h5>댓글</h5>
+    <c:if test="${sessionScope.loginEmail==null}">
+        <input type="text" disabled placeholder="로그인하세요">
+        <input type="text" disabled placeholder="로그인하세요">
+        <button onclick="commentSave_fn()" disabled>댓글작성</button>
+        <br>
+    </c:if>
+
+
     <c:if test="${sessionScope.loginEmail!=null}">
-    <input type="text" id="commentWriter" value="${sessionScope.loginEmail}" readonly>
-    <input type="text" id="commentContents" placeholder="내용 입력">
-    <button onclick="commentSave_fn()">댓글작성</button>
+        <input type="text" id="commentWriter" value="${sessionScope.loginEmail}" readonly>
+        <input type="text" id="commentContents" placeholder="내용 입력">
+        <button onclick="commentSave_fn()">댓글작성</button>
+        <br>
     </c:if>
 </div>
-    <div id="comment-List-area">
-        <c:choose>
-            <c:when test="${commentList == null}">
-                <h3>작성된 댓글이 없습니다.</h3>
-            </c:when>
-            <c:otherwise>
-            <table id="comment-List">
+<div class="mx-5" id="comment-List-area">
+    <c:choose>
+        <c:when test="${commentList == null}">
+            <p id="loginFalse">작성된 댓글이 없습니다.</p>
+        </c:when>
+        <c:otherwise>
+            <table id="comment-List" class="table table-striped">
                 <tr>
                     <th>작성자</th>
                     <th>내용</th>
+                    <th>삭제</th>
                     <th>작성시간</th>
                 </tr>
                 <c:forEach items="${commentList}" var="comment">
                     <tr>
                         <td>${comment.commentWriter}</td>
                         <td>${comment.commentContents}</td>
-                        <td>${comment.createdAt}</td>
                         <c:if test="${sessionScope.loginEmail==comment.commentWriter}">
-                        <td><input type="button" onclick="commentDelete_fn()" value="삭제"></td>
+                            <td><input type="button" onclick="commentDelete_fn(${comment.id},${board.id})" value="삭제">
+                            </td>
                         </c:if>
+                        <c:if test="${sessionScope.loginEmail!=comment.commentWriter}">
+                            <td><input type="button" onclick="commentDelete_fn(${comment.id},${board.id})" value="삭제" disabled>
+                            </td>
+                        </c:if>
+                        <td>${comment.createdAt}</td>
+                        <!--좋아요 버튼-->
+                            <%--                       <td><button class="like__btn" data-board-id="${comment.id}">--%>
+                            <%--                            <span name="icon" id="icon"><i class="far fa-thumbs-up"></i></span>--%>
+                            <%--                            <span name="likeCount" id="likeCount">0</span> Like--%>
+                            <%--                        </button></td>--%>
+                        <!--좋아요 버튼-->
                     </tr>
-                    <br>
                 </c:forEach>
-                </table>
-            </c:otherwise>
-        </c:choose>
-    </div>
+            </table>
+        </c:otherwise>
+    </c:choose>
 </div>
+</div>
+<%@include file="component/footer.jsp" %>
 </body>
 <script>
     const commentSave_fn = () => {
@@ -88,36 +140,38 @@
         const boardId = '${board.id}';
         const result = document.getElementById("comment-List-area");
         $.ajax({
-            type : "get",
-            url : "/comment/save",
-            data : {commentWriter : commentWriter,
-                    commentContents : commentContents,
-                    boardId : boardId},
-            success : function (res){
-                let output = "<table id=\"comment-list\">\n" +
+            type: "get",
+            url: "/comment/save",
+            data: {
+                commentWriter: commentWriter,
+                commentContents: commentContents,
+                boardId: boardId
+            },
+            success: function (res) {
+                let output = "<table id=\"comment-list\" class=\"table table-striped\">\n" +
                     "    <tr>\n" +
                     "        <th>작성자</th>\n" +
                     "        <th>내용</th>\n" +
                     "        <th>작성시간</th>\n" +
+                    "        <th>삭제</th>\n" +
                     "    </tr>\n";
                 for (let i in res) {
                     output += "    <tr>\n";
                     output += "        <td>" + res[i].commentWriter + "</td>\n";
                     output += "        <td>" + res[i].commentContents + "</td>\n";
-                    output += "        <td>" + res[i].createdAt + "</td>\n";
                     if (${sessionScope.loginEmail} = res[i].commentWriter) {
-                        output += "        <td><input type=\"button\" onclick=\"commentDelete_fn()\" value=\"삭제\"></td>\n";
+                        output += "<td><input type=\"button\" onclick=\"commentDelete_fn(" + res[i].id + ",${board.id})\" value=\"삭제\"></td>";
                     } else {
                         output += "        <td></td>\n";
                     }
+                    output += "        <td>" + res[i].createdAt + "</td>\n";
                     output += "    </tr>\n";
                 }
                 output += "</table>";
                 result.innerHTML = output;
-                document.getElementById("comment-writer").value = "";
-                document.getElementById("comment-contents").value = "";
+                document.getElementById("commentContents").value = "";
             },
-            error : function (){
+            error: function () {
                 console.log("실패");
             }
         })
@@ -131,6 +185,49 @@
         const id = ${board.id};
         location.href = "/board/delete?id=" + id;
     }
+
+
+    const commentDelete_fn = (commentId, boardId) => {
+        const comment = commentId;
+        const board = boardId;
+        location.href = "/comment/delete?commentId=" + comment + "&boardId=" + board;
+    }
+
+
+    //좋아요 버튼 동작 정의
+    <%--const likeBtn = document.querySelector(".like__btn");--%>
+    <%--let likeIcon = document.querySelector("#icon");--%>
+    <%--let likeCount = document.querySelector("#likeCount");--%>
+    <%--const commentId = '${comment.id}';--%>
+
+    <%--let isClicked = false;--%>
+
+    <%--likeBtn.addEventListener("click", () => {--%>
+    <%--    $.ajax({--%>
+    <%--        url: "/like/like",--%>
+    <%--        type: "get",--%>
+    <%--        data: {id: commentId, isClicked : isClicked},--%>
+    <%--        success: function (res) {--%>
+    <%--            if (res == 1) {--%>
+    <%--               likeIcon.innerHTML =  `<i class="far fa-thumbs-up"></i>`;--%>
+    <%--                // likeCount.textContent = res.likeCount;--%>
+    <%--                // likeIcon.innerHTML = res.isClicked ? `<i class="fas fa-thumbs-up"></i>` : `<i class="far fa-thumbs-up"></i>`;--%>
+    <%--                // } else {--%>
+    <%--                //   alert(res.message);--%>
+    <%--                // }--%>
+    <%--            }else if(res == 2){--%>
+    <%--                likeIcon.innerHTML =  `<i class="fas fa-thumbs-up"></i>`;--%>
+    <%--            }else{--%>
+    <%--                likeIcon.innerHTML =  `<i class="far fa-thumbs-up"></i>`;--%>
+    <%--            }--%>
+    <%--        },--%>
+    <%--        error: function (error) {--%>
+    <%--            console.log(error);--%>
+    <%--            alert("An error occurred");--%>
+    <%--        }--%>
+    <%--    });--%>
+    <%--});--%>
+    //좋아요 버튼 동작 정의 끝
 </script>
 
 

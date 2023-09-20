@@ -19,4 +19,8 @@ public class CommentService {
     public void save(CommentDTO commentDTO) {
         commentRepository.save(commentDTO);
     }
+
+    public void delete(Long id) {
+        commentRepository.delete(id);
+    }
 }

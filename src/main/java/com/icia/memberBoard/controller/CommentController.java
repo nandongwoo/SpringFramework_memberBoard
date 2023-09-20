@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +22,14 @@ public class CommentController {
         List<CommentDTO> commentDTOList = commentService.findAll(commentDTO.getBoardId());
         return new ResponseEntity<>(commentDTOList, HttpStatus.OK);
     }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("commentId")Long commentId,
+                                       @RequestParam("boardId")Long boardId,
+                                       Model model){
+        commentService.delete(commentId);
+        model.addAttribute("id", boardId);
+        return "redirect:/board/detail";
+    }
+
 }

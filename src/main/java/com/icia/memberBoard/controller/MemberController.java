@@ -33,14 +33,17 @@ public class MemberController {
     @GetMapping("/login")
     public String login() {
         return "/memberPages/memberLogin";
+
     }
 
     @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession httpSession) {
-        boolean result = memberService.login(memberDTO);
-        if (result) {
-                httpSession.setAttribute("loginEmail", memberDTO.getMemberEmail());
-                httpSession.setAttribute("loginId", memberDTO.getId());
+        MemberDTO memberDTO1 = memberService.login(memberDTO);
+        System.out.println(memberDTO1);
+        if (memberDTO1!=null) {
+                httpSession.setAttribute("loginEmail", memberDTO1.getMemberEmail());
+                httpSession.setAttribute("loginId", memberDTO1.getId());
+            System.out.println(httpSession.getAttribute("loginId"));
                 return "redirect:/board/list";
             }
             return "/memberPages/memberLogin";
@@ -79,6 +82,15 @@ public class MemberController {
         memberService.update(memberDTO);
         model.addAttribute("member", memberDTO);
         return "/memberPages/memberMyPages";
+    }
+
+    @GetMapping("/drop")
+    public String drop(@RequestParam("id")Long id,
+                       Model model){
+        memberService.delete(id);
+        List<MemberDTO> memberDTOList = memberService.list();
+        model.addAttribute("memberList", memberDTOList);
+        return "/memberPages/memberList";
     }
 
     @GetMapping("/delete1")

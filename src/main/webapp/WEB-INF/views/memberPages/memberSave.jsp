@@ -1,13 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
-    <link rel="stylesheet" href="/resources/css/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-
+<%@include file="component/header.jsp"%>
+<%@include file="component/nav.jsp"%>
 
 <form action="/member/save" method="post" enctype="multipart/form-data">
     <input id="email" type="text" placeholder="이메일" name="memberEmail" onkeyup="emailCheck()"> <br>
@@ -18,6 +17,7 @@
     <input type="file" name="memberProfile" multiple> <br>
     <input id="submit" type="submit" value="회원가입">
 </form>
+<%@include file="component/footer.jsp"%>
 </body>
 <script>
     const emailCheck = () => {

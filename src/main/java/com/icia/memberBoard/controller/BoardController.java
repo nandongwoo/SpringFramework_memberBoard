@@ -27,7 +27,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                       @RequestParam(value = "listCount" , required = false, defaultValue = "3") int listCount,
+                       @RequestParam(value = "listCount" , required = false, defaultValue = "5") int listCount,
                        @RequestParam(value = "q", required = false, defaultValue = "") String q,
                        @RequestParam(value = "type", required = false, defaultValue = "boardTitle") String type,
                        Model model) {
