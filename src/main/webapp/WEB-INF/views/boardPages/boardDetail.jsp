@@ -118,12 +118,6 @@
                             </td>
                         </c:if>
                         <td>${comment.createdAt}</td>
-                        <!--좋아요 버튼-->
-                            <%--                       <td><button class="like__btn" data-board-id="${comment.id}">--%>
-                            <%--                            <span name="icon" id="icon"><i class="far fa-thumbs-up"></i></span>--%>
-                            <%--                            <span name="likeCount" id="likeCount">0</span> Like--%>
-                            <%--                        </button></td>--%>
-                        <!--좋아요 버튼-->
                     </tr>
                 </c:forEach>
             </table>
@@ -194,40 +188,6 @@
     }
 
 
-    //좋아요 버튼 동작 정의
-    <%--const likeBtn = document.querySelector(".like__btn");--%>
-    <%--let likeIcon = document.querySelector("#icon");--%>
-    <%--let likeCount = document.querySelector("#likeCount");--%>
-    <%--const commentId = '${comment.id}';--%>
-
-    <%--let isClicked = false;--%>
-
-    <%--likeBtn.addEventListener("click", () => {--%>
-    <%--    $.ajax({--%>
-    <%--        url: "/like/like",--%>
-    <%--        type: "get",--%>
-    <%--        data: {id: commentId, isClicked : isClicked},--%>
-    <%--        success: function (res) {--%>
-    <%--            if (res == 1) {--%>
-    <%--               likeIcon.innerHTML =  `<i class="far fa-thumbs-up"></i>`;--%>
-    <%--                // likeCount.textContent = res.likeCount;--%>
-    <%--                // likeIcon.innerHTML = res.isClicked ? `<i class="fas fa-thumbs-up"></i>` : `<i class="far fa-thumbs-up"></i>`;--%>
-    <%--                // } else {--%>
-    <%--                //   alert(res.message);--%>
-    <%--                // }--%>
-    <%--            }else if(res == 2){--%>
-    <%--                likeIcon.innerHTML =  `<i class="fas fa-thumbs-up"></i>`;--%>
-    <%--            }else{--%>
-    <%--                likeIcon.innerHTML =  `<i class="far fa-thumbs-up"></i>`;--%>
-    <%--            }--%>
-    <%--        },--%>
-    <%--        error: function (error) {--%>
-    <%--            console.log(error);--%>
-    <%--            alert("An error occurred");--%>
-    <%--        }--%>
-    <%--    });--%>
-    <%--});--%>
-    //좋아요 버튼 동작 정의 끝
 </script>
 
 

@@ -52,13 +52,13 @@
 <%@include file="component/header.jsp" %>
 <%@include file="component/nav.jsp" %>
 <div id="save">
-    <form action="/board/save" method="post" enctype="multipart/form-data" class="borderBox">
-        제목 : <input type="text" name="boardTitle" placeholder="글제목">
+    <form action="/board/save" method="post" enctype="multipart/form-data" class="borderBox" name="saveForm">
+        제목 : <input type="text" id="title" name="boardTitle" placeholder="글제목">
         작성자 : <input type="text" name="boardWriter" value="${sessionScope.loginEmail}" readonly>
         내용 : <textarea type="text" name="boardContents" placeholder="내용" rows="10" cols="30"></textarea>
         <input type="file" name="boardFile" multiple>
         <td></td>
-        <input class="btn btn-dark" type="submit" value="작성">
+        <input class="btn btn-dark" onclick="block_fn()" type="button" value="작성">
     </form>
 </div>
 
@@ -72,4 +72,15 @@
 <%--private List<MultipartFile> fileAttached;--%>
 <%@include file="component/footer.jsp" %>
 </body>
+<script>
+    const block_fn = () => {
+        const title = document.getElementById("title").value;
+        if(title != ""){
+            document.saveForm.submit();
+        }
+        else{
+            alert("제목을 입력하세요");
+        }
+    }
+</script>
 </html>
